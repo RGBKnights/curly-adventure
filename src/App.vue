@@ -447,8 +447,12 @@ function render() {
 function handleMouseMove(e) {
   if (!canvasRef.value) return;
   const rect = canvasRef.value.getBoundingClientRect();
-  const x = Math.floor((e.clientX - rect.left) / tileSize);
-  const y = Math.floor((e.clientY - rect.top) / tileSize);
+  const scaleX = rect.width / canvasRef.value.width;
+  const scaleY = rect.height / canvasRef.value.height;
+  const canvasX = (e.clientX - rect.left) / scaleX;
+  const canvasY = (e.clientY - rect.top) / scaleY;
+  const x = Math.floor(canvasX / tileSize);
+  const y = Math.floor(canvasY / tileSize);
   if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
     state.hover = { x, y };
   } else {
@@ -465,8 +469,12 @@ function handleMouseLeave() {
 function handleClick(e) {
   if (!canvasRef.value) return;
   const rect = canvasRef.value.getBoundingClientRect();
-  const x = Math.floor((e.clientX - rect.left) / tileSize);
-  const y = Math.floor((e.clientY - rect.top) / tileSize);
+  const scaleX = rect.width / canvasRef.value.width;
+  const scaleY = rect.height / canvasRef.value.height;
+  const canvasX = (e.clientX - rect.left) / scaleX;
+  const canvasY = (e.clientY - rect.top) / scaleY;
+  const x = Math.floor(canvasX / tileSize);
+  const y = Math.floor(canvasY / tileSize);
   if (x >= 0 && x < gridSize && y >= 0 && y < gridSize) {
     attemptPlay(x, y);
   }
